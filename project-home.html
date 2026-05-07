@@ -86,8 +86,10 @@ body_class: dark-menu
     .s3-right .image-container img { width: 100%; height: 100%; object-fit: cover; }
 
     /* --- Slide 4 --- */
-    .s4-left, .s4-right { display: flex; align-items: center; padding-bottom: 0; }
-    .s4-left .image-container, .s4-right .image-container { width: 100%; height: 100%; box-shadow: none; }
+    .s4-left, .s4-right { display: flex; align-items: flex-end; padding-bottom: 140px; }
+    .s4-left { justify-content: flex-end; } /* Empurra a foto da esquerda para a direita */
+    .s4-right { justify-content: flex-start; } /* Empurra a foto da direita para a esquerda */
+    .s4-left .image-container, .s4-right .image-container { width: 90%; height: 60%; box-shadow: none; }
     .s4-left .image-container img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
     .s4-right .image-container img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 
