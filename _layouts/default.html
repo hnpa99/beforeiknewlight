@@ -13,7 +13,63 @@
     {% include footer.html %}
 
     <script>
+        // --- NAVEGAÇÃO SEM RUPTURA (SPA-LITE) ---
+        function makeLinksSeamless() {
+            document.querySelectorAll('a').forEach(link => {
+                // Só intercepta links internos
+                if (link.hostname === window.location.hostname && !link.getAttribute('target')) {
+                    link.onclick = function(e) {
+                        e.preventDefault();
+                        const url = this.href;
+                        loadPage(url);
+                    };
+                }
+            });
+        }
+
+        async function loadPage(url) {
+            try {
+                const response = await fetch(url);
+                const html = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                
+                // Troca o conteúdo principal
+                const newContent = doc.querySelector('#main-content').innerHTML;
+                document.querySelector('#main-content').innerHTML = newContent;
+                
+                // Atualiza o título e a URL
+                document.title = doc.title;
+                window.history.pushState({ path: url }, doc.title, url);
+                
+                // Re-executa scripts necessários (como menu e links)
+                makeLinksSeamless();
+                // Fecha o menu se estiver aberto
+                const m = document.getElementById('dropdownMenu');
+                if (m) m.classList.remove('active');
+                
+                // Rola para o topo
+                window.scrollTo(0, 0);
+
+                // Dispara evento para scripts de página se houver
+                window.dispatchEvent(new Event('popstate'));
+            } catch (err) {
+                console.error("Erro ao carregar página:", err);
+                window.location.href = url; // Fallback se falhar
+            }
+        }
+
+        // Lida com o botão "Voltar" do navegador
+        window.onpopstate = function() {
+            loadPage(window.location.href);
+        };
+
+        // Inicializa
+        makeLinksSeamless();
+
+        // --- CONTROLE DE ÁUDIO ---
         const audio = document.getElementById('main-audio');
+        // ... (resto do código de áudio)
         
         // Recuperar estado salvo
         const savedTime = localStorage.getItem('audio-time');
