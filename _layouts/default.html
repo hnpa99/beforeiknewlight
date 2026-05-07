@@ -14,8 +14,27 @@
 
     <script>
         const audio = document.getElementById('main-audio');
-        audio.volume = 0.1;
+        
+        // Recuperar estado salvo
+        const savedTime = localStorage.getItem('audio-time');
+        const isMuted = localStorage.getItem('audio-muted') === 'true';
+        const wasPlaying = localStorage.getItem('audio-playing') === 'true';
+        const savedVolume = localStorage.getItem('audio-volume');
+
+        if (savedTime) audio.currentTime = parseFloat(savedTime);
+        if (savedVolume) audio.volume = parseFloat(savedVolume);
+        else audio.volume = 0.1;
+        
+        audio.muted = isMuted;
         updateMuteIcon();
+
+        // Salvar estado periodicamente e antes de sair
+        window.addEventListener('beforeunload', () => {
+            localStorage.setItem('audio-time', audio.currentTime);
+            localStorage.setItem('audio-muted', audio.muted);
+            localStorage.setItem('audio-playing', !audio.paused);
+            localStorage.setItem('audio-volume', audio.volume);
+        });
 
         // Função para atualizar os ícones do player
         function updateIcons(isPlaying) { 
@@ -25,6 +44,14 @@
                 playSvg.style.display = isPlaying ? 'none' : 'block'; 
                 pauseSvg.style.display = isPlaying ? 'block' : 'none'; 
             }
+        }
+
+        // Tentar retomar o áudio se ele estava tocando
+        if (wasPlaying) {
+            audio.play().then(() => updateIcons(true)).catch(() => {
+                // Se o navegador bloquear o autoplay, esperamos o primeiro clique
+                console.log("Autoplay bloqueado, aguardando interação.");
+            });
         }
 
         // Função de Play/Pause
@@ -37,18 +64,19 @@
             }
         }
 
-        // Trick para navegadores que bloqueiam áudio automático:
-        // Tenta tocar no primeiro clique em qualquer lugar da página
+        // Trick para navegadores: Tenta tocar no primeiro clique em qualquer lugar da página
         document.addEventListener('click', function() {
-            if (audio.paused && audio.currentTime === 0) {
-                // Tenta tocar silenciosamente para "desbloquear" o áudio
+            if (audio.paused && (wasPlaying || audio.currentTime === 0)) {
                 audio.play().then(() => {
                     updateIcons(true);
                 }).catch(() => {});
             }
         }, { once: true });
 
-        function changeVolume(v) { audio.volume = v; }
+        function changeVolume(v) { 
+            audio.volume = v; 
+            localStorage.setItem('audio-volume', v);
+        }
         
         function updateMuteIcon() {
             const soundSvg = document.getElementById('sound-svg');
@@ -62,6 +90,7 @@
         function toggleMute() { 
             audio.muted = !audio.muted; 
             updateMuteIcon();
+            localStorage.setItem('audio-muted', audio.muted);
         }
 
         audio.ontimeupdate = function() { 
@@ -69,6 +98,10 @@
             if (pBall && audio.duration) {
                 const p = (audio.currentTime / audio.duration) * 100; 
                 pBall.style.left = p + '%'; 
+            }
+            // Salvar o tempo a cada 5 segundos para garantir
+            if (Math.floor(audio.currentTime) % 5 === 0) {
+                localStorage.setItem('audio-time', audio.currentTime);
             }
         };
         
