@@ -16,10 +16,10 @@
         const audio = document.getElementById('main-audio');
         
         // Recuperar estado salvo
-        const savedTime = localStorage.getItem('audio-time');
-        const isMuted = localStorage.getItem('audio-muted') === 'true';
-        const wasPlaying = localStorage.getItem('audio-playing') === 'true';
-        const savedVolume = localStorage.getItem('audio-volume');
+        const savedTime = sessionStorage.getItem('audio-time');
+        const isMuted = sessionStorage.getItem('audio-muted') === 'true';
+        const wasPlaying = sessionStorage.getItem('audio-playing') === 'true';
+        const savedVolume = sessionStorage.getItem('audio-volume');
 
         if (savedTime) audio.currentTime = parseFloat(savedTime);
         if (savedVolume) audio.volume = parseFloat(savedVolume);
@@ -30,10 +30,10 @@
 
         // Salvar estado periodicamente e antes de sair
         window.addEventListener('beforeunload', () => {
-            localStorage.setItem('audio-time', audio.currentTime);
-            localStorage.setItem('audio-muted', audio.muted);
-            localStorage.setItem('audio-playing', !audio.paused);
-            localStorage.setItem('audio-volume', audio.volume);
+            sessionStorage.setItem('audio-time', audio.currentTime);
+            sessionStorage.setItem('audio-muted', audio.muted);
+            sessionStorage.setItem('audio-playing', !audio.paused);
+            sessionStorage.setItem('audio-volume', audio.volume);
         });
 
         // Função para atualizar os ícones do player
@@ -74,7 +74,7 @@
 
         function changeVolume(v) { 
             audio.volume = v; 
-            localStorage.setItem('audio-volume', v);
+            sessionStorage.setItem('audio-volume', v);
         }
         
         function updateMuteIcon() {
@@ -89,7 +89,7 @@
         function toggleMute() { 
             audio.muted = !audio.muted; 
             updateMuteIcon();
-            localStorage.setItem('audio-muted', audio.muted);
+            sessionStorage.setItem('audio-muted', audio.muted);
         }
 
         audio.ontimeupdate = function() { 
@@ -100,7 +100,7 @@
             }
             // Salvar o tempo a cada 5 segundos para garantir
             if (Math.floor(audio.currentTime) % 5 === 0) {
-                localStorage.setItem('audio-time', audio.currentTime);
+                sessionStorage.setItem('audio-time', audio.currentTime);
             }
         };
         
