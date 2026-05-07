@@ -1,0 +1,100 @@
+---
+layout: default
+title: About
+body_class: dark-menu
+---
+
+<style>
+    #about-container {
+        padding: 150px 8vw 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: calc(100vh - 200px);
+    }
+
+    .about-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr 1.2fr;
+        grid-template-rows: 1fr 1fr; /* Divide o grid em 50% / 50% */
+        gap: 0 60px;
+        max-width: 1100px;
+        width: 100%;
+        height: 65vh;
+    }
+
+    .about-text {
+        font-size: 13px;
+        line-height: 2.2;
+        text-align: left;
+        color: var(--petroleum-gray);
+        letter-spacing: 0.3px;
+    }
+
+    /* Regra: Esquerda do topo ao meio */
+    .text-left { 
+        grid-row: 1 / 2; /* Fica na primeira metade vertical */
+        align-self: flex-start;
+        padding-top: 40px;
+    }
+
+    /* Regra: Direita do meio à base */
+    .text-right { 
+        grid-row: 2 / 3; /* Fica na segunda metade vertical */
+        grid-column: 3 / 4;
+        align-self: flex-end;
+        padding-bottom: 40px;
+    }
+
+    /* Foto centralizada nos dois eixos */
+    .about-image {
+        grid-column: 2 / 3;
+        grid-row: 1 / 3; /* Ocupa as duas linhas para centralizar */
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+        aspect-ratio: 3 / 4;
+        background-color: #eee;
+        overflow: hidden;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+        align-self: center; /* Centralização vertical perfeita */
+    }
+
+    .about-image img { width: 100%; height: 100%; object-fit: cover; }
+
+    @media (max-width: 950px) {
+        .about-grid { grid-template-columns: 1fr; grid-template-rows: auto; height: auto; gap: 40px; }
+        .text-left, .text-right { grid-row: auto; grid-column: auto; align-self: center; text-align: center; }
+        .about-image { grid-row: auto; grid-column: auto; max-width: 300px; }
+    }
+</style>
+
+<main id="about-container">
+    <div class="about-grid">
+        <div class="about-text text-left">
+            <p>
+                Hanna Alves is a photographer and filmmaker based in Southeast Brazil. 
+                Growing up surrounded by nature and rural landscapes shaped her free spirit 
+                and a sense of belonging that transcends borders.
+            </p>
+            <p>
+                Her style is driven by a desire to capture the unique beauty of human 
+                connections and her travels around the globe. With every project, she seeks 
+                to immerse herself deeply in her surroundings, uncovering the singular essence 
+                that makes each place special.
+            </p>
+        </div>
+
+        <div class="about-image">
+            <img src="{{ site.baseurl }}/assets/images/about/IMG_2276-1.jpg" alt="Hanna Alves">
+        </div>
+
+        <div class="about-text text-right">
+            <!-- Texto da direita começa do meio para baixo -->
+        </div>
+    </div>
+</main>
+
+<div class="back-link-container">
+    <a href="{{ site.baseurl }}/" class="back-link">Back to Cover</a>
+</div>

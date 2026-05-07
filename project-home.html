@@ -1,0 +1,146 @@
+---
+layout: default
+title: Home Project
+body_class: dark-menu
+---
+
+<style>
+    /* Reset radical para evitar QUALQUER scroll */
+    html, body { 
+        height: 100% !important; 
+        width: 100% !important; 
+        overflow: hidden !important; 
+        position: fixed !important;
+        margin: 0; padding: 0;
+    }
+    
+    #main-content { height: 100vh; width: 100vw; overflow: hidden; }
+    footer { display: none !important; } 
+
+    #slider-wrapper { 
+        display: flex; 
+        width: 500vw; 
+        height: 100vh; 
+        transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1); 
+    }
+
+    .slide { 
+        display: flex; 
+        width: 100vw; 
+        height: 100vh; 
+        overflow: hidden;
+    }
+
+    .page-left, .page-right { 
+        flex: 1; 
+        height: 100vh; 
+        position: relative; 
+        overflow: hidden; 
+    }
+
+    /* Container de Imagem: Forçando limites estritos */
+    .image-container { 
+        overflow: hidden; 
+        background-color: var(--bg-cream); 
+        width: 100%; height: 100%; 
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .image-container img { 
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        display: block;
+    }
+
+    /* --- Slide 1 --- */
+    .s1-left .image-container img { 
+        width: 100%; 
+        height: 100%; 
+        object-fit: contain; /* Garante que a foto toda seja vista sem zoom */
+    }
+    
+    .s1-right .image-container { 
+        width: 75%; height: 55%; 
+        position: absolute; right: 40px; bottom: 120px;
+        box-shadow: -10px 10px 30px rgba(0,0,0,0.05); 
+    }
+    .s1-right .image-container img { width: 100%; height: 100%; object-fit: cover; object-position: center 80%; }
+
+    /* --- Slide 2 --- */
+    .s2-left .image-container { position: absolute; top: 60px; left: 0; width: 80%; height: 60%; box-shadow: 10px 10px 30px rgba(0,0,0,0.03); }
+    .s2-left .image-container img { width: 100%; height: 100%; object-fit: cover; }
+    .s2-right .image-container { position: absolute; bottom: 40px; left: 20%; width: 50%; height: 75%; box-shadow: -10px -10px 30px rgba(0,0,0,0.03); }
+    .s2-right .image-container img { width: 100%; height: 100%; object-fit: contain; object-position: bottom left; }
+
+    /* --- Slide 3 --- */
+    .s3-left .image-container { width: 70%; height: 70%; }
+    .s3-left .image-container img { width: 100%; height: 100%; object-fit: contain; }
+    .s3-right .image-container { width: 100%; height: 100%; }
+    .s3-right .image-container img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* --- Slide 4 --- */
+    .s4-left, .s4-right { display: flex; align-items: flex-end; padding-bottom: 140px; }
+    .s4-left .image-container, .s4-right .image-container { width: 90%; height: 60%; box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
+    .s4-left .image-container img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+    .s4-right .image-container img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+
+    /* --- Slide 5 --- */
+    .s5-left .image-container { width: 60%; height: 60%; box-shadow: 0 10px 30px rgba(0,0,0,0.03); align-self: flex-start; margin-top: 0; }
+    .s5-left .image-container img { width: 100%; height: 100%; object-fit: cover; }
+    .s5-right .image-container { width: 100%; height: 100%; }
+    .s5-right .image-container img { width: 100%; height: 100%; object-fit: contain; object-position: top center; }
+
+    /* --- Navigation FIX --- */
+    .back-to-projects { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); font-size: 11px; text-decoration: none; color: var(--petroleum-gray); text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid var(--petroleum-gray); padding-bottom: 5px; opacity: 0.6; transition: opacity 0.3s; white-space: nowrap; z-index: 6001; }
+    .back-to-projects:hover { opacity: 1; }
+    .nav-arrow { position: fixed; top: 50%; transform: translateY(-50%); font-size: 20px; color: var(--petroleum-gray); text-decoration: none; opacity: 0.5; transition: all 0.3s; z-index: 6000; width: 45px; height: 45px; background-color: rgba(255, 255, 255, 0.6); border-radius: 50%; display: flex; align-items: center; justify-content: center; line-height: 1; padding-bottom: 2px; cursor: pointer; user-select: none; }
+    .nav-arrow:hover { opacity: 1; background-color: rgba(255, 255, 255, 0.9); }
+    .arrow-prev { left: 20px; display: none; }
+    .arrow-next { right: 20px; }
+</style>
+
+<div class="nav-arrow arrow-prev" id="prevBtn" onclick="moveSlider(-1)">←</div>
+<div class="nav-arrow arrow-next" id="nextBtn" onclick="moveSlider(1)">→</div>
+<a href="{{ site.baseurl }}/projects/" class="back-to-projects">Back to Projects</a>
+
+<div id="slider-wrapper">
+    <div class="slide">
+        <section class="page-left s1-left"><div class="image-container"><img src="{{ site.baseurl }}/assets/images/home/DSC00692.jpg" alt=""></div></section>
+        <section class="page-right s1-right"><div class="image-container"><img src="{{ site.baseurl }}/assets/images/home/DSC00618-1.jpg" alt=""></div></section>
+    </div>
+    <div class="slide">
+        <section class="page-left s2-left"><div class="image-container"><img src="{{ site.baseurl }}/assets/images/home/DSC00591.jpg" alt=""></div></section>
+        <section class="page-right s2-right"><div class="image-container"><img src="{{ site.baseurl }}/assets/images/home/DSC00584.jpg" alt=""></div></section>
+    </div>
+    <div class="slide">
+        <section class="page-left s3-left"><div class="image-container"><img src="{{ site.baseurl }}/assets/images/home/DSC00715.jpg" alt=""></div></section>
+        <section class="page-right s3-right"><div class="image-container"><img src="{{ site.baseurl }}/assets/images/home/DSC00713.jpg" alt=""></div></section>
+    </div>
+    <div class="slide">
+        <section class="page-left s4-left"><div class="image-container"><img src="{{ site.baseurl }}/assets/images/home/DSC00287.jpg" alt=""></div></section>
+        <section class="page-right s4-right"><div class="image-container"><img src="{{ site.baseurl }}/assets/images/home/DSC0030733.jpg" alt=""></div></section>
+    </div>
+    <div class="slide">
+        <section class="page-left s5-left"><div class="image-container"><img src="{{ site.baseurl }}/assets/images/home/DSC0064733.jpg" alt=""></div></section>
+        <section class="page-right s5-right"><div class="image-container"><img src="{{ site.baseurl }}/assets/images/home/DSC0071833.jpg" alt=""></div></section>
+    </div>
+</div>
+
+<script>
+    let currentSlide = 0;
+    const totalSlides = 5;
+    const wrapper = document.getElementById('slider-wrapper');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    function moveSlider(direction) {
+        currentSlide += direction;
+        wrapper.style.transform = `translateX(-${currentSlide * 100}vw)`;
+        prevBtn.style.display = currentSlide === 0 ? 'none' : 'flex';
+        nextBtn.style.display = currentSlide === (totalSlides - 1) ? 'none' : 'flex';
+    }
+</script>

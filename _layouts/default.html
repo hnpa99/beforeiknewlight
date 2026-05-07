@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+{% include head.html %}
+<body class="{{ page.body_class }}">
+
+    {% include player.html %}
+    {% include menu.html %}
+
+    <div id="main-content">
+        {{ content }}
+    </div>
+
+    {% include footer.html %}
+
+    <script>
+        const audio = document.getElementById('main-audio');
+        audio.volume = 0.1;
+
+        // Função para atualizar os ícones do player
+        function updateIcons(isPlaying) { 
+            const playSvg = document.getElementById('play-svg');
+            const pauseSvg = document.getElementById('pause-svg');
+            if (playSvg && pauseSvg) {
+                playSvg.style.display = isPlaying ? 'none' : 'block'; 
+                pauseSvg.style.display = isPlaying ? 'block' : 'none'; 
+            }
+        }
+
+        // Função de Play/Pause
+        function togglePlay() {
+            if (audio.paused) {
+                audio.play().then(() => updateIcons(true)).catch(e => console.error("Erro áudio:", e));
+            } else {
+                audio.pause();
+                updateIcons(false);
+            }
+        }
+
+        // Trick para navegadores que bloqueiam áudio automático:
+        // Tenta tocar no primeiro clique em qualquer lugar da página
+        document.addEventListener('click', function() {
+            if (audio.paused && audio.currentTime === 0) {
+                // Tenta tocar silenciosamente para "desbloquear" o áudio
+                audio.play().then(() => {
+                    updateIcons(true);
+                }).catch(() => {});
+            }
+        }, { once: true });
+
+        function changeVolume(v) { audio.volume = v; }
+        function toggleMute() { audio.muted = !audio.muted; }
+
+        audio.ontimeupdate = function() { 
+            const pBall = document.getElementById('progress-ball');
+            if (pBall && audio.duration) {
+                const p = (audio.currentTime / audio.duration) * 100; 
+                pBall.style.left = p + '%'; 
+            }
+        };
+        
+        function toggleMenu() { document.getElementById('dropdownMenu').classList.toggle('active'); }
+        window.onclick = function(e) { if (!e.target.closest('#menu-container')) { const m = document.getElementById('dropdownMenu'); if (m && m.classList.contains('active')) m.classList.remove('active'); } }
+    </script>
+</body>
+</html>

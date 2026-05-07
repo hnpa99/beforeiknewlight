@@ -1,0 +1,24 @@
+---
+layout: default
+title: Silent Echoes
+body_class: dark-menu
+---
+
+<style>
+    #grid-container { padding: 150px 8vw 100px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+    .grid-item { width: 100%; aspect-ratio: 1/1; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+    .grid-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .grid-item:hover img { transform: scale(1.05); }
+
+    .back-to-projects { display: block; text-align: center; margin-top: 60px; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: inherit; text-decoration: none; border-bottom: 1px solid var(--petroleum-gray); padding-bottom: 5px; opacity: 0.6; transition: opacity 0.3s; width: fit-content; margin-left: auto; margin-right: auto; }
+    .back-to-projects:hover { opacity: 1; }
+</style>
+
+<main id="grid-container">
+    <div class="grid-item"><img src="{{ site.baseurl }}/assets/images/home/DSC00591.jpg" alt=""></div>
+    <div class="grid-item"><img src="{{ site.baseurl }}/assets/images/home/DSC00584.jpg" alt=""></div>
+    <div class="grid-item"><img src="{{ site.baseurl }}/assets/images/home/DSC00715.jpg" alt=""></div>
+    <div class="grid-item"><img src="{{ site.baseurl }}/assets/images/home/DSC00713.jpg" alt=""></div>
+</main>
+
+<a href="{{ site.baseurl }}/projects/" class="back-to-projects">Back to Projects</a>

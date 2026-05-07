@@ -1,0 +1,18 @@
+title: Before I Knew Light
+email: hello@beforeiknewlight.com
+description: Photography and Filmmaking Portfolio
+
+# IMPORTANTE: Se o seu repositório no GitHub for "beforeiknewlight", 
+# o baseurl deve ser "/beforeiknewlight". Se for o repositório principal 
+# (seu-usuario.github.io), deixe vazio "".
+baseurl: "/beforeiknewlight" 
+url: "https://hnpa99.github.io"
+
+# Configura as URLs para não aparecer o ".html"
+permalink: /:title/
+
+# Build settings
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
