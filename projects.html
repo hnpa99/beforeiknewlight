@@ -62,8 +62,14 @@ body_class: dark-menu
         text-underline-offset: 3px; 
     }
 
-    @media (max-width: 900px) { .projects-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 600px) { .projects-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) { 
+        #projects-index { padding-top: 100px; padding-left: 10vw; padding-right: 10vw; }
+        .projects-grid { grid-template-columns: repeat(2, 1fr); } 
+    }
+    @media (max-width: 600px) { 
+        #projects-index { padding-left: 5vw; padding-right: 5vw; }
+        .projects-grid { grid-template-columns: 1fr; gap: 50px; } 
+    }
 </style>
 
 <main id="projects-index">

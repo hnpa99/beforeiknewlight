@@ -115,5 +115,20 @@
             transition: opacity 0.3s;
         }
         .back-link:hover { opacity: 1; }
+
+        /* --- Responsive Queries --- */
+        @media (max-width: 600px) {
+            #music-player { font-size: 10px; }
+            .song-info { display: none; } /* Esconde o nome da música no mobile */
+            .player-content { width: 98%; }
+            .player-controls { gap: 10px; }
+            #volume-slider { width: 30px !important; }
+            
+            #menu-container { right: 20px; top: 45px; }
+            .stairs-line { width: 22px; }
+            .line2 { width: 15px; } .line3 { width: 10px; }
+            
+            footer { padding: 40px 5vw 30px; }
+        }
     </style>
 </head>
